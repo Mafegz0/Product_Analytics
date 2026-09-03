@@ -17,3 +17,5 @@ La magnitud de la solución integral y la urgencia de atender la necesidad actua
 - Reduce la dependencia inicial de desarrollos tecnológicos externos.
 - Permite validar el caso de uso antes de escalar la inversión.
 - Genera conocimiento sobre las fuentes y reglas necesarias para una futura automatización.
+
+#prueba git
