@@ -17,7 +17,7 @@ Define:
 - Objetivos estratégicos
 - Alcance del proyecto
 - Beneficios
-- Indicadores de 
+- Indicadores 
 - Planeación de entregables
 ---
 
@@ -51,5 +51,6 @@ Incluye:
 - Justificación
 - Impacto
 - Fecha
+
 
 ---
