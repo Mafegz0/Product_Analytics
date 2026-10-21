@@ -1,0 +1,347 @@
+project:
+  name: "Product Analytics - Análisis de Mercado SNIES"
+  methodology: "ASUM-DM"
+  phase: "02_Data_Understanding"
+  artifact: "data_quality_rules"
+  owner: "Analytics"
+  description: "Reglas de calidad aplicables al histórico SNIES, sus programas académicos, instituciones de educación superior y dimensiones derivadas para el modelo de análisis de mercado."
+
+quality_dimensions:
+  - Completitud
+  - Validez
+  - Consistencia
+  - Integridad referencial
+  - Unicidad
+  - Exactitud
+
+severity_definition:
+  Alta: "Afecta la integridad del histórico, la identificación de instituciones o la homologación de programas."
+  Media: "Afecta análisis, categorización o comparabilidad entre años."
+  Baja: "Afecta trazabilidad, presentación o enriquecimiento."
+
+SNIES2020:
+  source_name: "Historico_SNIES_2020"
+  domain: "Mercado Educación Superior"
+  type: "Histórico"
+  grain: "1 fila por registro de programa académico e institución reportado en SNIES"
+  expected_sheets:
+    - "2020"
+  notes: "Fuente histórica 2020. Presenta diferencias estructurales frente a los años posteriores y requiere homologación de nombres de columnas y creación de campos inexistentes en la fuente original."
+  rules:
+    - id: "SNIES2020_R001"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Completitud"
+      rule: "Código de institución obligatorio"
+      expectation: "Todo registro válido debe contener un código de institución."
+      severity: "Alta"
+
+    - id: "SNIES2020_R002"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Validez"
+      rule: "Código de institución válido"
+      expectation: "Debe ser convertible a un código numérico válido de institución."
+      severity: "Alta"
+
+    - id: "SNIES2020_R003"
+      column: "AÑO"
+      dimension: "Exactitud"
+      rule: "Año histórico correcto"
+      expectation: "Todos los registros de la hoja 2020 deben corresponder al año 2020."
+      severity: "Alta"
+
+    - id: "SNIES2020_R004"
+      column: "AÑO_ORIGEN"
+      dimension: "Exactitud"
+      rule: "Año de origen correcto"
+      expectation: "Debe ser igual a 2020 para todos los registros provenientes de la hoja 2020."
+      severity: "Alta"
+
+    - id: "SNIES2020_R005"
+      column: "MODALIDAD"
+      dimension: "Consistencia"
+      rule: "Modalidad homologada"
+      expectation: "La información histórica registrada como METODOLOGÍA debe ser comparable con el campo MODALIDAD utilizado en los años posteriores."
+      severity: "Media"
+
+    - id: "SNIES2020_R006"
+      column: "MATRICULADOS PRIMER CURSO"
+      dimension: "Consistencia"
+      rule: "Variable de matriculados homologada"
+      expectation: "La variable histórica PRIMER CURSO debe representar el mismo concepto que MATRICULADOS PRIMER CURSO utilizado en los años posteriores."
+      severity: "Alta"
+
+    - id: "SNIES2020_R007"
+      column: "TIPO IES"
+      dimension: "Consistencia"
+      rule: "Tipo de institución homologado"
+      expectation: "La variable histórica PRINCIPAL O SECCIONAL debe conservar equivalencia semántica con TIPO IES."
+      severity: "Media"
+
+    - id: "SNIES2020_R008"
+      column: "IES ACREDITADA"
+      dimension: "Completitud"
+      rule: "Campo estructural disponible"
+      expectation: "El esquema consolidado debe contener el campo IES ACREDITADA. Para 2020 puede permanecer nulo debido a que no existe en la fuente original."
+      severity: "Baja"
+
+    - id: "SNIES2020_R009"
+      column: "PROGRAMA ACREDITADO"
+      dimension: "Completitud"
+      rule: "Campo estructural disponible"
+      expectation: "El esquema consolidado debe contener el campo PROGRAMA ACREDITADO. Para 2020 puede permanecer nulo debido a que no existe en la fuente original."
+      severity: "Baja"
+
+SNIES2021:
+  source_name: "Historico_SNIES_2021"
+  domain: "Mercado Educación Superior"
+  type: "Histórico"
+  grain: "1 fila por registro de programa académico e institución reportado en SNIES"
+  expected_sheets:
+    - "2021"
+  notes: "Fuente histórica 2021. Requiere homologación de nombres de columnas para mantener comparabilidad con el esquema utilizado desde 2023."
+  rules:
+    - id: "SNIES2021_R001"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Completitud"
+      rule: "Código de institución obligatorio"
+      expectation: "Todo registro válido debe contener un código de institución."
+      severity: "Alta"
+
+    - id: "SNIES2021_R002"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Validez"
+      rule: "Código de institución válido"
+      expectation: "Debe ser convertible a un código numérico válido de institución."
+      severity: "Alta"
+
+    - id: "SNIES2021_R003"
+      column: "AÑO"
+      dimension: "Exactitud"
+      rule: "Año histórico correcto"
+      expectation: "Todos los registros de la hoja 2021 deben corresponder al año 2021."
+      severity: "Alta"
+
+    - id: "SNIES2021_R004"
+      column: "AÑO_ORIGEN"
+      dimension: "Exactitud"
+      rule: "Año de origen correcto"
+      expectation: "Debe ser igual a 2021 para todos los registros provenientes de la hoja 2021."
+      severity: "Alta"
+
+    - id: "SNIES2021_R005"
+      column: "MODALIDAD"
+      dimension: "Consistencia"
+      rule: "Modalidad homologada"
+      expectation: "La información histórica registrada como METODOLOGÍA debe ser comparable con el campo MODALIDAD utilizado en los años posteriores."
+      severity: "Media"
+
+    - id: "SNIES2021_R006"
+      column: "MATRICULADOS PRIMER CURSO"
+      dimension: "Consistencia"
+      rule: "Variable de matriculados homologada"
+      expectation: "La variable histórica PRIMER CURSO debe representar el mismo concepto que MATRICULADOS PRIMER CURSO utilizado en los años posteriores."
+      severity: "Alta"
+
+SNIES2022:
+  source_name: "Historico_SNIES_2022"
+  domain: "Mercado Educación Superior"
+  type: "Histórico"
+  grain: "1 fila por registro de programa académico e institución reportado en SNIES"
+  expected_sheets:
+    - "2022"
+  notes: "Fuente histórica 2022. Requiere homologación de nombres de columnas para mantener comparabilidad con el esquema utilizado desde 2023."
+  rules:
+    - id: "SNIES2022_R001"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Completitud"
+      rule: "Código de institución obligatorio"
+      expectation: "Todo registro válido debe contener un código de institución."
+      severity: "Alta"
+
+    - id: "SNIES2022_R002"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Validez"
+      rule: "Código de institución válido"
+      expectation: "Debe ser convertible a un código numérico válido de institución."
+      severity: "Alta"
+
+    - id: "SNIES2022_R003"
+      column: "AÑO"
+      dimension: "Exactitud"
+      rule: "Año histórico correcto"
+      expectation: "Todos los registros de la hoja 2022 deben corresponder al año 2022."
+      severity: "Alta"
+
+    - id: "SNIES2022_R004"
+      column: "AÑO_ORIGEN"
+      dimension: "Exactitud"
+      rule: "Año de origen correcto"
+      expectation: "Debe ser igual a 2022 para todos los registros provenientes de la hoja 2022."
+      severity: "Alta"
+
+    - id: "SNIES2022_R005"
+      column: "MODALIDAD"
+      dimension: "Consistencia"
+      rule: "Modalidad homologada"
+      expectation: "La información histórica registrada como METODOLOGÍA debe ser comparable con el campo MODALIDAD utilizado en los años posteriores."
+      severity: "Media"
+
+    - id: "SNIES2022_R006"
+      column: "MATRICULADOS PRIMER CURSO"
+      dimension: "Consistencia"
+      rule: "Variable de matriculados homologada"
+      expectation: "La variable histórica PRIMER CURSO debe representar el mismo concepto que MATRICULADOS PRIMER CURSO utilizado en los años posteriores."
+      severity: "Alta"
+
+SNIES2023:
+  source_name: "Historico_SNIES_2023"
+  domain: "Mercado Educación Superior"
+  type: "Histórico"
+  grain: "1 fila por registro de programa académico e institución reportado en SNIES"
+  expected_sheets:
+    - "2023"
+  notes: "Fuente histórica 2023 con estructura compatible con el esquema actual."
+  rules:
+    - id: "SNIES2023_R001"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Completitud"
+      rule: "Código de institución obligatorio"
+      expectation: "Todo registro válido debe contener un código de institución."
+      severity: "Alta"
+
+    - id: "SNIES2023_R002"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Validez"
+      rule: "Código de institución válido"
+      expectation: "Debe ser convertible a un código numérico válido de institución."
+      severity: "Alta"
+
+    - id: "SNIES2023_R003"
+      column: "AÑO"
+      dimension: "Exactitud"
+      rule: "Año histórico correcto"
+      expectation: "Todos los registros de la hoja 2023 deben corresponder al año 2023."
+      severity: "Alta"
+
+    - id: "SNIES2023_R004"
+      column: "AÑO_ORIGEN"
+      dimension: "Exactitud"
+      rule: "Año de origen correcto"
+      expectation: "Debe ser igual a 2023 para todos los registros provenientes de la hoja 2023."
+      severity: "Alta"
+
+SNIES2024:
+  source_name: "Historico_SNIES_2024"
+  domain: "Mercado Educación Superior"
+  type: "Histórico"
+  grain: "1 fila por registro de programa académico e institución reportado en SNIES"
+  expected_sheets:
+    - "2024"
+  notes: "Fuente histórica 2024 con estructura compatible con el esquema actual. Puede contener columnas residuales completamente vacías generadas por Excel."
+  rules:
+    - id: "SNIES2024_R001"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Completitud"
+      rule: "Código de institución obligatorio"
+      expectation: "Todo registro válido debe contener un código de institución."
+      severity: "Alta"
+
+    - id: "SNIES2024_R002"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Validez"
+      rule: "Código de institución válido"
+      expectation: "Debe ser convertible a un código numérico válido de institución."
+      severity: "Alta"
+
+    - id: "SNIES2024_R003"
+      column: "AÑO"
+      dimension: "Exactitud"
+      rule: "Año histórico correcto"
+      expectation: "Todos los registros de la hoja 2024 deben corresponder al año 2024."
+      severity: "Alta"
+
+    - id: "SNIES2024_R004"
+      column: "AÑO_ORIGEN"
+      dimension: "Exactitud"
+      rule: "Año de origen correcto"
+      expectation: "Debe ser igual a 2024 para todos los registros provenientes de la hoja 2024."
+      severity: "Alta"
+
+SNIES2025:
+  source_name: "Historico_SNIES_2025"
+  domain: "Mercado Educación Superior"
+  type: "Histórico"
+  grain: "1 fila por registro de programa académico e institución reportado en SNIES"
+  expected_sheets:
+    - "2025"
+  notes: "Fuente histórica 2025 con estructura compatible con el esquema actual. Puede contener columnas residuales completamente vacías generadas por Excel."
+  rules:
+    - id: "SNIES2025_R001"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Completitud"
+      rule: "Código de institución obligatorio"
+      expectation: "Todo registro válido debe contener un código de institución."
+      severity: "Alta"
+
+    - id: "SNIES2025_R002"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Validez"
+      rule: "Código de institución válido"
+      expectation: "Debe ser convertible a un código numérico válido de institución."
+      severity: "Alta"
+
+    - id: "SNIES2025_R003"
+      column: "AÑO"
+      dimension: "Exactitud"
+      rule: "Año histórico correcto"
+      expectation: "Todos los registros de la hoja 2025 deben corresponder al año 2025."
+      severity: "Alta"
+
+    - id: "SNIES2025_R004"
+      column: "AÑO_ORIGEN"
+      dimension: "Exactitud"
+      rule: "Año de origen correcto"
+      expectation: "Debe ser igual a 2025 para todos los registros provenientes de la hoja 2025."
+      severity: "Alta"
+
+HISTORICO_SNIES:
+  source_name: "HISTORICO_SNIES"
+  domain: "Mercado Educación Superior"
+  type: "Consolidado"
+  grain: "1 fila por registro histórico de programa académico e institución reportado en SNIES"
+  expected_sheets:
+    - "2020"
+    - "2021"
+    - "2022"
+    - "2023"
+    - "2024"
+    - "2025"
+  notes: "Consolidado resultante de la homologación estructural y unión de las seis hojas históricas."
+  rules:
+    - id: "HIST_SNIES_R001"
+      column: "AÑO_ORIGEN"
+      dimension: "Completitud"
+      rule: "Año de origen obligatorio"
+      expectation: "Todos los registros consolidados deben conservar el año de la hoja de procedencia."
+      severity: "Alta"
+
+    - id: "HIST_SNIES_R002"
+      column: "AÑO / AÑO_ORIGEN"
+      dimension: "Consistencia"
+      rule: "Coherencia temporal"
+      expectation: "El valor de AÑO debe ser coherente con AÑO_ORIGEN para cada registro."
+      severity: "Alta"
+
+    - id: "HIST_SNIES_R003"
+      column: "CÓDIGO DE LA INSTITUCIÓN"
+      dimension: "Completitud"
+      rule: "Institución identificable"
+      expectation: "No deben permanecer en el consolidado registros sin un código de institución válido."
+      severity: "Alta"
+
+    - id: "HIST_SNIES_R004"
+      column: "Esquema de columnas"
+      dimension: "Consistencia"
+      rule: "Estructura común entre años"
+      expectation: "Los registros de 2020 a 2025 deben conservar una estructura homologada que permita su concatenación y comparación."
+      severity: "Alta"
