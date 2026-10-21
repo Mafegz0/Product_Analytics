@@ -1,145 +1,79 @@
-# Product Analytics – Modelo BI Competencia
+# Product Analytics | Inteligencia competitiva de educación superior
 
-Repositorio técnico para el diseño e implementación de un modelo analítico de inteligencia competitiva, enfocado en la construcción de una vista ejecutiva para el análisis de:
+Proyecto de **analítica de mercado para la oferta académica**, orientado a apoyar decisiones de portafolio, posicionamiento y precios mediante el análisis de programas, instituciones y demanda histórica.
 
-- Oferta académica comparable.
-- Competencia directa por programa.
-- Precios y descuentos.
-- Modalidad y duración.
-- Diferenciales de la oferta académica.
-- Evolución histórica de la demanda.
-- Posicionamiento competitivo precio–valor.
-- Tendencias de matrícula.
-- Oportunidades y brechas de portafolio.
+**Estado:** en desarrollo. El repositorio publica las primeras tres fases de la metodología **ASUM-DM**; el modelo BI, la evaluación y el despliegue se documentarán a medida que se desarrollen.
 
-El proyecto está orientado a consolidar y estandarizar información competitiva proveniente de diferentes fuentes, mejorando la comparabilidad, calidad, trazabilidad y oportunidad de los datos utilizados para soportar decisiones de precio, portafolio, posicionamiento y captación.
+## Problema de negocio y objetivo
 
-La solución analítica será implementada mediante un modelo de datos y un dashboard ejecutivo en Power BI.
+Se requiere comparar la oferta de programas académicos de distintas instituciones y relacionar sus características con información histórica de matrícula para respaldar decisiones sobre:
 
----
+- Programas e instituciones comparables.
+- Modalidades y duración de los programas.
+- Posicionamiento competitivo, precios y descuentos, cuando estén disponibles las fuentes comerciales.
+- Evolución de la demanda y oportunidades de portafolio.
 
-## Objetivos del Proyecto
+**Objetivo de esta etapa:** preparar una base SNIES consistente y analizable para el periodo **2020–2025**, homologando estructuras de origen y desarrollando un análisis exploratorio y dimensiones para la comparación de programas.
 
-- Consolidar la información financiera en un modelo único.
-- Estandarizar precios, descuentos, vigencias y demás variables comerciales necesarias para realizar comparaciones válidas.
-- Integrar los últimos cinco años disponibles de información histórica de matrículas provenientes de fuentes oficiales.
-- Relacionar variables de precio, propuesta de valor, características de la oferta y comportamiento histórico de la demanda.
-- Construir un dashboard estratégico en Power BI.
-- Documentar reglas de negocio y transformación de datos.
+> **Alcance de fuentes:** el histórico SNIES es la base trabajada en los notebooks publicados. El análisis de precios, descuentos y propuesta de valor requiere otras fuentes y corresponde a fases posteriores. No se presenta como un resultado ya implementado.
 
----
+## Arquitectura objetivo
 
-## Arquitectura General
+- **Fuentes:** histórico SNIES (2020–2025) y, en etapas posteriores, fuentes de oferta y precios.
+- **Preparación:** Python/pandas para lectura, revisión del esquema, normalización de nombres y tipos de columnas, consolidación histórica y creación de dimensiones.
+- **Consumo previsto:** modelo analítico y tablero de inteligencia competitiva en Power BI.
 
-El proyecto se estructura en dos capas principales:
+La consolidación debe preservar el año de origen y atender las diferencias de columnas entre periodos, especialmente en 2020–2022. La variable **MATRICULADOS PRIMER CURSO** se contempla en las reglas de homologación histórica.
 
-### Data Layer
-- Fuentes en Excel
-- Transformaciones y homologaciones
-- Creación de variables calculadas
-- Definición de llaves y granularidad
+## Metodología ASUM-DM: avance documentado
 
-### BI Layer
-- Modelo en Power BI
-- Medidas DAX 
-- Filtros y vistas por programa.
-- Comparativos de oferta.
-- Análisis de precios.
-- Tendencias históricas de matrícula.
-- Visualizaciones de posicionamiento competitivo.
-- Análisis precio–valor.
+| Fase | Estado documental | Evidencias en el repositorio |
+| --- | --- | --- |
+| **01 · Business Understanding** | Documentada | Carta de proyecto, RACI, matriz de riesgos, Decision Log y README |
+| **02 · Data Understanding** | Documentación parcial | README y especificación YAML de reglas de calidad del histórico SNIES |
+| **03 · Data Preparation** | Notebook publicado | Normalización del histórico, EDA y trabajo sobre dimensiones |
+| **04 · Modeling** | Pendiente | Modelo analítico y visualizaciones por desarrollar/documentar |
+| **05 · Evaluation** | Pendiente | Conciliaciones, métricas y validaciones por documentar |
+| **06 · Deployment** | Pendiente | Publicación, manuales y operación por documentar |
 
----
+La existencia de **reglas de calidad declaradas** no implica que su ejecución automática ni sus resultados hayan sido comprobados.
 
-## Metodología
+## Estructura actual del repositorio
 
-El proyecto sigue el enfoque ASUM-DM estructurado en 6 fases:
-
-1. Business Understanding
-2. Data Understanding
-3. Data Preparation
-4. Modeling
-5. Evaluation
-6. Deployment
-
-Cada fase cuenta con documentación formal y entregables definidos.
----
-
-## Estructura del Repositorio
-```
-Credito-y-Cartera/
-│
+```text
+Product_Analytics/
 ├── 01_Business_Understanding/
 │   ├── Project_Charter.xlsx
-│   ├── Risk_Register.xlsx
-│   ├── Stakeholders_RACI.xlsx
-│   ├── Decision_Log.md
+│   ├── RACI.xlsx
+│   ├── Risk_Matrix.xlsx
+│   ├── Decision_log.md
 │   └── README.md
-│
 ├── 02_Data_Understanding/
-│   ├── data_inventory.xlsx
-│   ├── data_dictionary.xlsx
-│   ├── data_quality_rules.yaml
+│   ├── data_quality_rules_SNIES.yaml
 │   └── README.md
-│
 ├── 03_Data_Preparation/
-│   ├── PowerQuery_Transformations.md 
-│   ├── Reglas_Transformacion.xlsx
-│   └── README.md
-│
-├── 04_Modeling/
-│   ├── Modelo_Dimensional.png
-│   ├── Modelo_Descripcion.md
-│   └── README.md
-│   ├── visualization/      
-│         ├── Medidas_DAX.xlsx
-│         ├── KPIs_Definicion.md
-│         ├── Tablas_Calculadas.md
-│
-├── 05_Evaluation/
-│   ├── validation_report.md
-│
-├── 06_Deployment/
-│   ├── powerbi/
-│   ├── Manual_de_usuario.pdf
-│
-├── Data/
-│
+│   └── notebooks/
+│       └── 01_SNIES_Normalizacion_EDA_Dimensiones.ipynb
 ├── .gitignore
 └── README.md
-
 ```
 
----
+Las carpetas **04_Modeling**, **05_Evaluation** y **06_Deployment** se incorporarán conforme avance el proyecto. El inventario y diccionario de datos, aunque previstos en la metodología, todavía no figuran publicados como archivos independientes.
 
-## Stack técnico
-- Microsoft Excel
-- Power BI
-- Git & GitHub
+## Documentación y artefactos
 
-## Alcance técnico
+- [01 · Business Understanding](01_Business_Understanding/README.md)
+- [Registro de decisiones](01_Business_Understanding/Decision_log.md)
+- [02 · Data Understanding](02_Data_Understanding/README.md)
+- [Reglas de calidad SNIES](02_Data_Understanding/data_quality_rules_SNIES.yaml)
+- [Notebook principal: SNIES 2020–2025](03_Data_Preparation/notebooks/01_SNIES_Normalizacion_EDA_Dimensiones.ipynb)
 
-Incluye:
+## Herramientas y prácticas
 
-- Identificación y documentación de fuentes de información.
-- Inventario de datos.
-- Homologación de programas.
-- Normalización de variables competitivas.
-- Normalización de precios y descuentos.
-- Integración de información histórica de demanda..
-- Definición de criterios de competencia directa.
-- Modelado dimensional.
-- Construcción de métricas de inteligencia competitiva.
+**Python, pandas, Jupyter Notebook, Excel, YAML, Git y GitHub**; metodología **ASUM-DM**. **Power BI** es la herramienta prevista para la visualización ejecutiva.
 
-No incluye:
+## Gestión de datos
 
-- Desarrollo de modelos predictivos de matrícula.
-- Predicción automática de demanda.
-- Precios en tiempo real.
-- Ejecución automática de decisiones comerciales.
-- Modificación automática de precios.
-- Automatización completa de fuentes cuando técnicamente no se encuentre disponible.
+El archivo `.gitignore` excluye, entre otros, archivos de datos (`.xlsx`, `.csv`) y de Power BI (`.pbix`). Los entregables de gestión ya incorporados al historial del repositorio pueden seguir versionados: `.gitignore` no elimina archivos previamente cargados.
 
-##  Responsable técnico
-
-Coordinadora de Analítica de negocio y riesgos 
+**Responsable técnico:** Coordinación de Analítica de Negocio y Riesgos.
